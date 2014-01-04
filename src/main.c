@@ -18,14 +18,24 @@ int main(int argc, char *argv[]) {
     char *ip = NULL;
     int net_mode = NET_MODE_NONE;
 
-    // Disable SDL_GetPrefPath for now, it seems to be somewhat buggy
-/*
-    char *path = SDL_GetPrefPath("AnanasGroup", "OpenOMF");
+
+#ifndef DEBUGMODE
+    path = SDL_GetPrefPath("AnanasGroup", "OpenOMF");
     if(path == NULL) {
         printf("Error: %s\n", SDL_GetError());
         return 1;
     }
-*/
+    printf("Config path is %s\n", path);
+    SDL_free(path);
+
+    path = SDL_GetBasePath();
+    if(path == NULL) {
+        printf("Error: %s\n", SDL_GetError());
+        return 1;
+    }
+    printf("Base path is %s\n", path);
+    SDL_free(path);
+#endif
 
     // Config path
     char config_path[strlen(path)+32];
