@@ -421,7 +421,7 @@ void mainmenu_connect_to_ip(component *c, void *userdata) {
     free(settings_get()->net.net_server_ip);
     settings_get()->net.net_server_ip = dupestr(addr);
     local->host = enet_host_create(NULL, 1, 2, 0, 0);
-    s->gs->role = ROLE_CLIENT;
+    s->gs->role = ROLE_SERVER;
     if (local->host == NULL) {
         DEBUG("Failed to initialize ENet client");
         return;
@@ -462,7 +462,7 @@ void mainmenu_listen_for_connections(component *c, void *userdata) {
     address.host = ENET_HOST_ANY;
     address.port = settings_get()->net.net_server_port;
     local->host = enet_host_create(&address, 1, 2, 0, 0);
-    s->gs->role = ROLE_SERVER;
+    s->gs->role = ROLE_CLIENT;
     if (local->host == NULL) {
         DEBUG("Failed to initialize ENet server");
         return;
